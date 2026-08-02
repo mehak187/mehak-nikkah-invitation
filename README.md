@@ -1,6 +1,6 @@
 # nikkah-invitation
 
-An animated wedding invitation website — **Mehak & Shakaib**.
+An animated nikkah invitation website — **Mehak & Shakaib**.
 
 ## Entry sequence
 
@@ -25,7 +25,7 @@ An animated wedding invitation website — **Mehak & Shakaib**.
 Everything lives in a single file: `index.html` — no build step, no dependencies.
 
 - Names, venue and RSVP numbers: edit the HTML directly
-- Countdown target: the `WEDDING.date` line in the script
+- Countdown target: the `NIKKAH.date` line in the script
   (month is 0-based, so `10` = November)
 
 Just open `index.html` in a browser.
