@@ -952,6 +952,8 @@ function openInvite(){
   if(opened) return; opened = true;
   /* isi tap par music shuru — baad mein (setTimeout ke andar) iOS Safari usay
      user gesture nahi maanta aur playback block kar deta hai */
+  soundOn = true;
+  unlockBooms();
   startMusic();
   env.classList.add('open');
   stageEnv.classList.add('opening');   // card ke raste se text hata do
@@ -1227,11 +1229,16 @@ let musicReady = false;
     bgm.src = MUSIC;
     musicBtn.hidden = false;
   };
-  probe.onerror = () => { musicBtn.remove(); };
+  probe.onerror = () => {
+    /* gana nahi mila — magar aatishbazi ki awaz ke liye button rehne do */
+    bgm.remove();
+    musicBtn.hidden = false;
+  };
   probe.src = MUSIC;
 })();
 
 function startMusic(){
+  musicBtn.classList.remove('paused');
   if(!musicReady) return;
   bgm.volume = 0;
   const p = bgm.play();
@@ -1243,10 +1250,67 @@ function fadeIn(){
   let v = 0;
   const t = setInterval(()=>{ v = Math.min(.5, v + .02); bgm.volume = v; if(v >= .5) clearInterval(t); }, 90);
 }
+/* toggle soundOn par chalta hai, bgm.paused par nahi — warna music.mp3 na hone par
+   bgm hamesha "paused" rehta hai aur mute kabhi lagta hi nahi */
 musicBtn.addEventListener('click', () => {
-  if(bgm.paused){ startMusic(); }
-  else { bgm.pause(); musicBtn.classList.add('paused'); }
+  if(soundOn){
+    soundOn = false;
+    if(musicReady) bgm.pause();
+    musicBtn.classList.add('paused');
+  } else {
+    soundOn = true;
+    unlockBooms();
+    if(musicReady) startMusic();
+    else musicBtn.classList.remove('paused');
+  }
 });
+
+
+/* ---------- AATISHBAZI KI AWAZ ---------- */
+/* har dhamake par ek chhoti si mp3. Har clip ki chand copies rakhte hain taake
+   overlapping dhamake ek doosre ko kaat na den. */
+const BOOMS = ['sfx/boom1.mp3','sfx/boom2.mp3','sfx/boom3.mp3'];
+const BOOM_VOL = .32;
+let boomPool = [], boomIdx = 0, soundOn = false, boomsReady = false;
+
+(function(){
+  let left = BOOMS.length, ok = 0;
+  BOOMS.forEach(src => {
+    const probe = new Audio();
+    probe.preload = 'auto';
+    probe.oncanplaythrough = () => { if(!probe._done){ probe._done = 1; ok++; settle(); } };
+    probe.onerror = () => { if(!probe._done){ probe._done = 1; settle(); } };
+    probe.src = src;
+  });
+  function settle(){
+    if(--left) return;
+    if(!ok) return;
+    BOOMS.forEach(src => {
+      for(let i=0;i<3;i++){                      /* teen copies fi clip */
+        const a = new Audio(src);
+        a.preload = 'auto'; a.volume = BOOM_VOL;
+        boomPool.push(a);
+      }
+    });
+    boomsReady = true;
+  }
+})();
+
+/* awaz sirf tab jab user ne music band na kiya ho — ek hi mute control */
+function playBoom(){
+  if(!soundOn || !boomsReady || !boomPool.length) return;
+  const a = boomPool[boomIdx++ % boomPool.length];
+  try{ a.currentTime = 0; a.volume = BOOM_VOL; a.play().catch(()=>{}); }catch(e){}
+}
+/* pehle tap par pool ko "unlock" kar lo, warna baad mein browser rok deta hai */
+function unlockBooms(){
+  if(!boomsReady) return;
+  boomPool.forEach(a => {
+    const v = a.volume; a.volume = 0;
+    const p = a.play();
+    if(p) p.then(()=>{ a.pause(); a.currentTime = 0; a.volume = v; }).catch(()=>{ a.volume = v; });
+  });
+}
 
 /* ---------- AATISHBAZI + CONFETTI (khulne par ek dafa) ---------- */
 let shells = [], sparksFx = [], confetti = [], flash = 0;
@@ -1313,7 +1377,7 @@ function drawFx(){
     ctx.globalAlpha = .9; ctx.fillStyle = s.c;
     ctx.beginPath(); ctx.arc(s.x, s.y, 2, 0, Math.PI*2); ctx.fill();
     ctx.restore();
-    if(s.y <= s.ty || s.vy >= 0){ explode(s.x, s.y, s.c); shells.splice(i,1); }
+    if(s.y <= s.ty || s.vy >= 0){ explode(s.x, s.y, s.c); playBoom(); shells.splice(i,1); }
   }
   for(let i=sparksFx.length-1;i>=0;i--){
     const p = sparksFx[i];

@@ -37,6 +37,15 @@ button appears only when the file loads, and disappears if it is missing.
 Browsers block audio autoplay, so playback starts on the tap that opens the invitation —
 that tap counts as the user gesture. The button then toggles it. The volume fades in to 50%.
 
+## Sound effects
+
+`sfx/boom1.mp3`–`boom3.mp3` are firework explosions from Freesound, CC0 (public domain).
+One plays with each burst when the invitation opens. Three copies of each are pooled so
+overlapping bursts do not cut each other off.
+
+The floating button is the single mute control — it silences both the song and the fireworks,
+and it still appears if `music.mp3` is missing.
+
 ## Adding photos and video
 
 Every slot degrades gracefully: video beats image, image beats the drawn SVG scene, and a section
