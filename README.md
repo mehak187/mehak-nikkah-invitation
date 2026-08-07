@@ -29,6 +29,14 @@ Deewan-e-Khas Marriage Hall, Sialkot
 The entrance and stage scenes are hand-drawn inline SVG — no image files are shipped.
 `gate.jpg` (supplied by the couple) is the only picture in the repo.
 
+## Music
+
+`music.mp3` is the couple's own track. Replace the file with any song you like — the floating
+button appears only when the file loads, and disappears if it is missing.
+
+Browsers block audio autoplay, so playback starts on the tap that opens the invitation —
+that tap counts as the user gesture. The button then toggles it. The volume fades in to 50%.
+
 ## Adding photos and video
 
 Every slot degrades gracefully: video beats image, image beats the drawn SVG scene, and a section

@@ -366,6 +366,29 @@ body.locked{overflow:hidden;height:100vh}
 #site.show{opacity:1}
 #petals{position:fixed;inset:0;pointer-events:none;z-index:40}
 
+/* ---- MUSIC BUTTON ---- */
+.music-btn{
+  position:fixed;right:clamp(14px,3vw,26px);bottom:clamp(14px,3vw,26px);z-index:70;
+  width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid var(--line);background:rgba(253,251,244,.92);backdrop-filter:blur(6px);
+  color:var(--olive);cursor:pointer;
+  box-shadow:0 10px 26px -12px rgba(110,104,65,.5);
+  transition:transform .35s,box-shadow .35s,background .35s;
+}
+.music-btn:hover{transform:translateY(-3px);box-shadow:0 16px 32px -14px rgba(110,104,65,.65)}
+.music-btn[hidden]{display:none}
+.music-btn svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
+.music-btn .off{display:none}
+.music-btn.paused .on{display:none}
+.music-btn.paused .off{display:block}
+/* bajte waqt halki si dhadkan */
+.music-btn:not(.paused)::after{
+  content:'';position:absolute;inset:-4px;border-radius:50%;
+  border:1px solid rgba(184,146,74,.5);animation:mpulse 2.4s ease-out infinite;
+}
+@keyframes mpulse{0%{transform:scale(.9);opacity:.7}100%{transform:scale(1.25);opacity:0}}
+@media (prefers-reduced-motion:reduce){.music-btn:not(.paused)::after{animation:none}}
+
 /* ---- HERO ---- */
 .hero{position:relative;min-height:100svh;overflow:hidden;background:#f3ece0}
 .hero picture{display:contents}
@@ -668,6 +691,11 @@ body.locked{overflow:hidden;height:100vh}
 <!-- ============ SITE ============ -->
 <main id="site">
   <canvas id="petals"></canvas>
+  <audio id="bgm" loop preload="metadata"></audio>
+  <button class="music-btn paused" id="musicBtn" hidden aria-label="Music on/off">
+    <svg class="on" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>
+    <svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/><path d="M4 4l16 16"/></svg>
+  </button>
 
 
 
@@ -874,6 +902,9 @@ let opened = false;
 
 function openInvite(){
   if(opened) return; opened = true;
+  /* isi tap par music shuru — baad mein (setTimeout ke andar) iOS Safari usay
+     user gesture nahi maanta aur playback block kar deta hai */
+  startMusic();
   env.classList.add('open');
   stageEnv.classList.add('opening');   // card ke raste se text hata do
   setTimeout(()=>{
@@ -882,6 +913,7 @@ function openInvite(){
     toTop();                      // unlock ke foran baad hero se hi shuru ho
     site.classList.add('show');
     startPetals();
+    celebrate();
     firstReveal();
   }, 1750);
 }
@@ -990,7 +1022,7 @@ document.getElementById('calBtn').addEventListener('click', (e)=>{
 const cv = document.getElementById('petals');
 const ctx = cv.getContext('2d');
 let petals = [], raf = null, running = false;
-const COLORS = ['#e7b4bd','#d99aa5','#f2cfd4','#c9a227','#f0d97d','#e8c3a8'];
+const COLORS = ['#F3E7CE','#E8D3A0','#FFFAF0','#DCCBA6','#EFE2D0','#C9B98E'];
 
 function sizeCanvas(){
   cv.width  = window.innerWidth  * devicePixelRatio;
@@ -1029,7 +1061,7 @@ function drawPetal(p){
 /* ---------- URTE HUE DIL ---------- */
 /* patte neeche girte hain, dil upar urte hain — is se harkat mein tawazun rehta hai */
 let hearts = [];
-const HEART_COLORS = ['#e8778c','#d94f6e','#f2a6b4','#c9a227','#f0d97d'];
+const HEART_COLORS = ['#E8D3A0','#EBD9CF','#F3E7CE','#D9C79B','#F0E4CE'];
 function makeHeart(seed){
   return {
     x: Math.random()*window.innerWidth,
@@ -1040,7 +1072,7 @@ function makeHeart(seed){
     ph: Math.random()*Math.PI*2,
     rot: (Math.random()-.5)*.5,
     vr: (Math.random()-.5)*.012,
-    a: .18 + Math.random()*.26,
+    a: .1 + Math.random()*.16,
     c: HEART_COLORS[(Math.random()*HEART_COLORS.length)|0]
   };
 }
@@ -1063,7 +1095,7 @@ function drawHeart(h){
 
 /* ---------- TITLIYAN ---------- */
 let flies = [];
-const FLY_COLORS = [['#f0d97d','#8a6a1c'],['#e8a0b0','#8d3550'],['#f2cfd4','#96586a'],['#ffe6ae','#a8801a']];
+const FLY_COLORS = [['#EFDFB4','#A78E52'],['#F4E8D2','#9C8A63'],['#E6D9BC','#8F7C4E']];
 function makeFly(seed){
   const c = FLY_COLORS[(Math.random()*FLY_COLORS.length)|0];
   return {
@@ -1075,7 +1107,7 @@ function makeFly(seed){
     ph: Math.random()*Math.PI*2,
     fl: .16 + Math.random()*.12,      /* par hilne ki raftaar */
     wob: Math.random()*Math.PI*2,
-    a: .45 + Math.random()*.4,
+    a: .3 + Math.random()*.28,
     c: c[0], bc: c[1]
   };
 }
@@ -1120,10 +1152,144 @@ function drawSparks(){
     if(a < .06) continue;
     ctx.save();
     ctx.globalAlpha = a*.9;
-    ctx.fillStyle = '#f6e2a8';
-    ctx.shadowColor = 'rgba(240,217,125,.95)';
+    ctx.fillStyle = '#EFDFB4';
+    ctx.shadowColor = 'rgba(200,170,105,.9)';
     ctx.shadowBlur = 10*a;
     ctx.beginPath(); ctx.arc(s.x, s.y, s.r*(.5+a*.6), 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+  }
+}
+
+
+
+/* ---------- BACKGROUND MUSIC ---------- */
+/* music.mp3 rakhein to button aa jayega. Browser bina user gesture ke awaz nahi
+   chalne dete — is liye playback usi tap par shuru hota hai jo invite kholta hai. */
+const MUSIC = 'music.mp3';
+const bgm = document.getElementById('bgm');
+const musicBtn = document.getElementById('musicBtn');
+let musicReady = false;
+
+(function(){
+  const probe = document.createElement('audio');
+  probe.preload = 'metadata';
+  probe.oncanplaythrough = probe.onloadedmetadata = () => {
+    if(musicReady) return;
+    musicReady = true;
+    bgm.src = MUSIC;
+    musicBtn.hidden = false;
+  };
+  probe.onerror = () => { musicBtn.remove(); };
+  probe.src = MUSIC;
+})();
+
+function startMusic(){
+  if(!musicReady) return;
+  bgm.volume = 0;
+  const p = bgm.play();
+  if(p) p.then(fadeIn).catch(()=>{ musicBtn.classList.add('paused'); });
+  else fadeIn();
+}
+function fadeIn(){
+  musicBtn.classList.remove('paused');
+  let v = 0;
+  const t = setInterval(()=>{ v = Math.min(.5, v + .02); bgm.volume = v; if(v >= .5) clearInterval(t); }, 90);
+}
+musicBtn.addEventListener('click', () => {
+  if(bgm.paused){ startMusic(); }
+  else { bgm.pause(); musicBtn.classList.add('paused'); }
+});
+
+/* ---------- AATISHBAZI + CONFETTI (khulne par ek dafa) ---------- */
+let shells = [], sparksFx = [], confetti = [], flash = 0;
+const FX_COLORS = ['#B8924A','#8A6A2C','#6E6841','#C4808F','#A9762E','#8E7B3A'];
+
+function launchShell(delay){
+  const w = window.innerWidth, h = window.innerHeight;
+  shells.push({
+    x: w*(.18 + Math.random()*.64),
+    y: h + 12,
+    ty: h*(.14 + Math.random()*.30),      /* kahan phatna hai */
+    vy: -(12.5 + Math.random()*4),
+    t: -delay,                             /* manfi = abhi intezaar */
+    c: FX_COLORS[(Math.random()*FX_COLORS.length)|0]
+  });
+}
+function explode(x, y, c){
+  const n = 46 + (Math.random()*26|0);
+  for(let i=0;i<n;i++){
+    const a = (i/n)*Math.PI*2 + Math.random()*.2;
+    const sp = 2.8 + Math.random()*4.6;
+    sparksFx.push({
+      x, y, vx:Math.cos(a)*sp, vy:Math.sin(a)*sp,
+      life:1, decay:.008 + Math.random()*.009,
+      c: Math.random()<.75 ? c : FX_COLORS[(Math.random()*FX_COLORS.length)|0],
+      r: 1.8 + Math.random()*2.1
+    });
+  }
+}
+function dropConfetti(){
+  const w = window.innerWidth, n = window.innerWidth < 640 ? 60 : 110;
+  for(let i=0;i<n;i++){
+    confetti.push({
+      x: Math.random()*w, y: -20 - Math.random()*window.innerHeight*.6,
+      w: 4 + Math.random()*5, h: 7 + Math.random()*8,
+      vy: 1.6 + Math.random()*2.4, vx: (Math.random()-.5)*1.4,
+      rot: Math.random()*Math.PI*2, vr: (Math.random()-.5)*.16,
+      c: FX_COLORS[(Math.random()*FX_COLORS.length)|0], a: 1
+    });
+  }
+}
+/* darwaza khulte hi dhamaka */
+function celebrate(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  for(let i=0;i<10;i++) launchShell(i*11 + Math.random()*10);
+  dropConfetti();
+  flash = 1;
+}
+function drawFx(){
+  const g = .055;
+  if(flash > 0){
+    const r = Math.max(window.innerWidth, window.innerHeight);
+    const grd = ctx.createRadialGradient(window.innerWidth/2, window.innerHeight*.45, 0, window.innerWidth/2, window.innerHeight*.45, r);
+    grd.addColorStop(0, 'rgba(255,236,190,' + (flash*.30).toFixed(3) + ')');
+    grd.addColorStop(1, 'rgba(255,236,190,0)');
+    ctx.save(); ctx.fillStyle = grd; ctx.fillRect(0,0,window.innerWidth,window.innerHeight); ctx.restore();
+    flash = Math.max(0, flash - .012);
+  }
+  for(let i=shells.length-1;i>=0;i--){
+    const s = shells[i];
+    if(++s.t < 0) continue;              /* abhi apni baari ka intezaar */
+    s.y += s.vy; s.vy += .12;
+    ctx.save();
+    ctx.globalAlpha = .9; ctx.fillStyle = s.c;
+    ctx.beginPath(); ctx.arc(s.x, s.y, 2, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+    if(s.y <= s.ty || s.vy >= 0){ explode(s.x, s.y, s.c); shells.splice(i,1); }
+  }
+  for(let i=sparksFx.length-1;i>=0;i--){
+    const p = sparksFx[i];
+    p.x += p.vx; p.y += p.vy; p.vy += g; p.vx *= .988; p.vy *= .988;
+    p.life -= p.decay;
+    if(p.life <= 0){ sparksFx.splice(i,1); continue; }
+    ctx.save();
+    ctx.globalAlpha = Math.max(0,p.life);
+    ctx.fillStyle = p.c;
+    ctx.shadowColor = p.c; ctx.shadowBlur = 14*p.life;
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.r*p.life + .4, 0, Math.PI*2); ctx.fill();
+    ctx.globalAlpha = Math.max(0,p.life)*.85; ctx.fillStyle = '#fffdf4'; ctx.shadowBlur = 0;
+    ctx.beginPath(); ctx.arc(p.x, p.y, (p.r*p.life)*.42, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+  }
+  const hh = window.innerHeight;
+  for(let i=confetti.length-1;i>=0;i--){
+    const c = confetti[i];
+    c.y += c.vy; c.x += c.vx + Math.sin(c.y*.02)*.5; c.rot += c.vr;
+    if(c.y > hh + 30){ confetti.splice(i,1); continue; }
+    ctx.save();
+    ctx.translate(c.x, c.y); ctx.rotate(c.rot);
+    ctx.globalAlpha = c.a * .85; ctx.fillStyle = c.c;
+    ctx.fillRect(-c.w/2, -c.h/2, c.w, c.h);
     ctx.restore();
   }
 }
@@ -1132,6 +1298,7 @@ function loop(){
   ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
   const h = window.innerHeight, w = window.innerWidth;
   drawSparks();
+  drawFx();
   for(const p of petals){
     p.ph += .017;
     p.y  += p.sp;
@@ -1170,10 +1337,10 @@ function startPetals(){
   running = true;
   sizeCanvas();
   const small = window.innerWidth < 640;
-  petals = Array.from({length: small ? 18 : 34}, ()=>makePetal(true));
-  hearts = Array.from({length: small ?  5 :  9}, ()=>makeHeart(true));
-  flies  = Array.from({length: small ?  3 :  5}, ()=>makeFly(true));
-  sparks = Array.from({length: small ? 30 : 60}, makeSpark);
+  petals = Array.from({length: small ? 14 : 24}, ()=>makePetal(true));
+  hearts = Array.from({length: small ?  3 :  5}, ()=>makeHeart(true));
+  flies  = Array.from({length: small ?  2 :  3}, ()=>makeFly(true));
+  sparks = Array.from({length: small ? 22 : 44}, makeSpark);
   loop();
 }
 document.addEventListener('visibilitychange', ()=>{
