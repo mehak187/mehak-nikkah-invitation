@@ -364,7 +364,7 @@ body.locked{overflow:hidden;height:100vh}
 }
 #site{opacity:0;transition:opacity 1.4s ease .2s;background:var(--ivory)}
 #site.show{opacity:1}
-#petals{position:fixed;inset:0;pointer-events:none;z-index:40}
+#petals{position:fixed;inset:0;pointer-events:none;z-index:110}
 
 /* ---- MUSIC BUTTON ---- */
 .music-btn{
@@ -635,6 +635,8 @@ body.locked{overflow:hidden;height:100vh}
 </head>
 <body class="locked">
 
+<canvas id="petals"></canvas>
+
 <!-- ============ ENVELOPE GATE ============ -->
 <div id="gate">
   <div class="glow"></div>
@@ -715,7 +717,6 @@ body.locked{overflow:hidden;height:100vh}
 
 <!-- ============ SITE ============ -->
 <main id="site">
-  <canvas id="petals"></canvas>
   <audio id="bgm" loop preload="metadata"></audio>
   <button class="music-btn paused" id="musicBtn" hidden aria-label="Music on/off">
     <svg class="on" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>
@@ -936,7 +937,11 @@ let winOpened = false;
 
 function openWindow(){
   if(winOpened) return; winOpened = true;
+  /* pehla tap: awaz yahin unlock kar lo, warna baad ke dhamake khamosh reh jate hain */
+  soundOn = true;
+  unlockBooms();
   win.classList.add('open');
+  cutSpark(document.querySelector('.rb-bow') || win);
   setTimeout(()=>{
     stageWin.classList.add('hide');
     stageEnv.classList.remove('wait');
@@ -956,6 +961,7 @@ function openInvite(){
   unlockBooms();
   startMusic();
   env.classList.add('open');
+  sealPuff(env);
   stageEnv.classList.add('opening');   // card ke raste se text hata do
   setTimeout(()=>{
     gate.classList.add('gone');
@@ -1271,40 +1277,28 @@ musicBtn.addEventListener('click', () => {
    overlapping dhamake ek doosre ko kaat na den. */
 const BOOMS = ['sfx/boom1.mp3','sfx/boom2.mp3','sfx/boom3.mp3'];
 const BOOM_VOL = .32;
-let boomPool = [], boomIdx = 0, soundOn = false, boomsReady = false;
+let boomPool = [], boomIdx = 0, soundOn = false, boomsUnlocked = false;
 
-(function(){
-  let left = BOOMS.length, ok = 0;
-  BOOMS.forEach(src => {
-    const probe = new Audio();
-    probe.preload = 'auto';
-    probe.oncanplaythrough = () => { if(!probe._done){ probe._done = 1; ok++; settle(); } };
-    probe.onerror = () => { if(!probe._done){ probe._done = 1; settle(); } };
-    probe.src = src;
-  });
-  function settle(){
-    if(--left) return;
-    if(!ok) return;
-    BOOMS.forEach(src => {
-      for(let i=0;i<3;i++){                      /* teen copies fi clip */
-        const a = new Audio(src);
-        a.preload = 'auto'; a.volume = BOOM_VOL;
-        boomPool.push(a);
-      }
-    });
-    boomsReady = true;
+/* pool foran bana lo — canplaythrough ka intezaar karte to jaldi tap karne par
+   pehli chingari khamosh reh jati thi. File na mile to play() chupke se fail ho jata hai. */
+BOOMS.forEach(src => {
+  for(let i=0;i<3;i++){                        /* teen copies fi clip */
+    const a = new Audio(src);
+    a.preload = 'auto'; a.volume = BOOM_VOL;
+    boomPool.push(a);
   }
-})();
+});
 
 /* awaz sirf tab jab user ne music band na kiya ho — ek hi mute control */
-function playBoom(){
-  if(!soundOn || !boomsReady || !boomPool.length) return;
+function playBoom(vol){
+  if(!soundOn || !boomPool.length) return;
   const a = boomPool[boomIdx++ % boomPool.length];
-  try{ a.currentTime = 0; a.volume = BOOM_VOL; a.play().catch(()=>{}); }catch(e){}
+  try{ a.currentTime = 0; a.volume = vol || BOOM_VOL; a.play().catch(()=>{}); }catch(e){}
 }
 /* pehle tap par pool ko "unlock" kar lo, warna baad mein browser rok deta hai */
 function unlockBooms(){
-  if(!boomsReady) return;
+  if(boomsUnlocked) return;                      /* ek hi dafa kaafi hai */
+  boomsUnlocked = true;
   boomPool.forEach(a => {
     const v = a.volume; a.volume = 0;
     const p = a.play();
@@ -1352,7 +1346,49 @@ function dropConfetti(){
     });
   }
 }
-/* darwaza khulte hi dhamaka */
+/* kisi bhi jagah se seedhi chingari — chhote lamhon ke liye */
+function sparkAt(x, y, n, spread, cols){
+  for(let i=0;i<n;i++){
+    const a = (i/n)*Math.PI*2 + Math.random()*.25;
+    const sp = spread*(.5 + Math.random());
+    sparksFx.push({
+      x, y, vx:Math.cos(a)*sp, vy:Math.sin(a)*sp,
+      life:1, decay:.011 + Math.random()*.012,
+      c: cols[(Math.random()*cols.length)|0],
+      r: 1.4 + Math.random()*1.7
+    });
+  }
+}
+/* 1) ribbon kat-ne par — halki sunehri chingari */
+function cutSpark(el){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  startLoop();
+  const r = el ? el.getBoundingClientRect() : {left:innerWidth/2,top:innerHeight/2,width:0,height:0};
+  const x = r.left + r.width/2, y = r.top + r.height/2;
+  sparkAt(x, y, 30, 3.2, ['#B8924A','#E8D3A0','#FFF3D0','#D4A574']);
+  flash = Math.max(flash, .45);
+  playBoom(.16);
+}
+/* 2) envelope khulne par — chingari + thori si confetti */
+function sealPuff(el){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  startLoop();
+  const r = el ? el.getBoundingClientRect() : {left:innerWidth/2,top:innerHeight/2,width:0,height:0};
+  const x = r.left + r.width/2, y = r.top + r.height*.55;
+  sparkAt(x, y, 44, 4.2, ['#B8924A','#8A6A2C','#E8D3A0','#C4808F','#FFF3D0']);
+  for(let i=0;i<34;i++){
+    confetti.push({
+      x: x + (Math.random()-.5)*140, y: y - 40 - Math.random()*80,
+      w: 4 + Math.random()*5, h: 7 + Math.random()*8,
+      vy: 1.5 + Math.random()*2, vx: (Math.random()-.5)*1.6,
+      rot: Math.random()*Math.PI*2, vr: (Math.random()-.5)*.16,
+      c: FX_COLORS[(Math.random()*FX_COLORS.length)|0], a: 1
+    });
+  }
+  flash = Math.max(flash, .6);
+  playBoom(.24);
+}
+/* 3) invite khulne par — poora dhamaka */
 function celebrate(){
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   for(let i=0;i<10;i++) launchShell(i*11 + Math.random()*10);
@@ -1443,17 +1479,25 @@ function loop(){
   }
   raf = requestAnimationFrame(loop);
 }
-function startPetals(){
-  if(running) return;
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+/* sirf loop — bina kisi ambient zarre ke. Gate ke waqt yehi chahiye,
+   taake chingariyan nazar aayen magar patte/dil abhi na uden. */
+function startLoop(){
+  if(running) return false;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
   running = true;
   sizeCanvas();
+  loop();
+  return true;
+}
+function startPetals(){
+  startLoop();
+  if(petals.length) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const small = window.innerWidth < 640;
   petals = Array.from({length: small ? 14 : 24}, ()=>makePetal(true));
   hearts = Array.from({length: small ?  3 :  5}, ()=>makeHeart(true));
   flies  = Array.from({length: small ?  2 :  3}, ()=>makeFly(true));
   sparks = Array.from({length: small ? 22 : 44}, makeSpark);
-  loop();
 }
 document.addEventListener('visibilitychange', ()=>{
   if(document.hidden){ cancelAnimationFrame(raf); }
