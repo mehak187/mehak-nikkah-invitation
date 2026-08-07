@@ -171,7 +171,7 @@ body.locked{overflow:hidden;height:100vh}
 .gs-mono{
   position:absolute;left:50%;top:50%;z-index:2;white-space:nowrap;
   transform:translate(-50%,-50%) scale(.66);opacity:0;
-  font-family:var(--script);font-size:clamp(24px,6.2vw,42px);line-height:1;
+  font-family:var(--script);font-size:clamp(15px,3.4vw,24px);line-height:1.4;
   color:#6E6841;text-shadow:0 2px 14px rgba(255,255,255,.95);
   transition:opacity 1s .75s,transform 1.2s .75s cubic-bezier(.2,.8,.2,1);
 }
@@ -499,16 +499,13 @@ body.locked{overflow:hidden;height:100vh}
 .facts{
   display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:clamp(26px,4vw,42px);
 }
-.fact{padding:6px clamp(10px,2.5vw,26px);text-align:center;border-left:1px solid rgba(160,139,79,.38)}
-.fact:first-child{border-left:0}
+.fact{padding:6px clamp(10px,2.5vw,26px);text-align:center}
 .fact svg{width:30px;height:30px;stroke:var(--brass-dk);fill:none;stroke-width:1.4}
 .fact .k{font-family:var(--sans);font-weight:400;letter-spacing:.2em;text-transform:uppercase;font-size:10px;color:var(--body-lt);margin-top:14px}
 .fact .v{font-family:var(--serif);font-variant-numeric:lining-nums;font-feature-settings:'lnum' 1;font-size:clamp(15px,2.4vw,18px);color:var(--body);margin-top:8px}
 .fact .s{font-family:var(--sans);font-weight:300;font-size:12px;color:var(--body-lt);margin-top:4px}
 @media (max-width:700px){
   .facts{grid-template-columns:1fr;gap:26px}
-  .fact{border-left:0;border-top:1px solid rgba(160,139,79,.3);padding-top:22px}
-  .fact:first-child{border-top:0;padding-top:6px}
 }
 
 /* ---- GLIMPSES ---- */
@@ -644,12 +641,12 @@ body.locked{overflow:hidden;height:100vh}
   <!-- STAGE 1 — the window -->
   <div class="stage" id="stageWin">
     <div class="gate-inner">
-      <div class="gate-title">You&rsquo;re Invited<small>Mehak &amp; Shakaib</small></div>
+      <div class="gate-title">You&rsquo;re Invited<small>To the Nikkah of Mehak &amp; Shakaib</small></div>
 
       <div class="gate-wrap">
         <div class="gate-scene" id="window">
           <span class="gs-back"></span>
-          <span class="gs-mono">Mehak &amp; Shakaib</span>
+          <span class="gs-mono">Nikkah of<br>Mehak &amp; Shakaib</span>
           <span class="gs-part gs-leaf l"></span>
           <span class="gs-part gs-leaf r"></span>
           <span class="gs-part gs-pillar l"></span>
@@ -1293,6 +1290,7 @@ BOOMS.forEach(src => {
 function playBoom(vol){
   if(!soundOn || !boomPool.length) return;
   const a = boomPool[boomIdx++ % boomPool.length];
+  a._unlocking = false;                          /* unlock ab isay pause na kare */
   try{ a.currentTime = 0; a.volume = vol || BOOM_VOL; a.play().catch(()=>{}); }catch(e){}
 }
 /* pehle tap par pool ko "unlock" kar lo, warna baad mein browser rok deta hai */
@@ -1300,9 +1298,13 @@ function unlockBooms(){
   if(boomsUnlocked) return;                      /* ek hi dafa kaafi hai */
   boomsUnlocked = true;
   boomPool.forEach(a => {
-    const v = a.volume; a.volume = 0;
+    const v = a.volume; a.volume = 0; a._unlocking = true;
     const p = a.play();
-    if(p) p.then(()=>{ a.pause(); a.currentTime = 0; a.volume = v; }).catch(()=>{ a.volume = v; });
+    /* .then() async chalta hai — agar itni der mein playBoom ne yehi clip asli awaz ke
+       liye chala diya ho to usay rokna nahi, warna ribbon wali awaz kat jati thi */
+    const done = () => { if(a._unlocking){ a._unlocking = false; a.pause(); a.currentTime = 0; a.volume = v; } };
+    if(p) p.then(done).catch(()=>{ a._unlocking = false; a.volume = v; });
+    else done();
   });
 }
 
@@ -1365,9 +1367,9 @@ function cutSpark(el){
   startLoop();
   const r = el ? el.getBoundingClientRect() : {left:innerWidth/2,top:innerHeight/2,width:0,height:0};
   const x = r.left + r.width/2, y = r.top + r.height/2;
-  sparkAt(x, y, 30, 3.2, ['#B8924A','#E8D3A0','#FFF3D0','#D4A574']);
-  flash = Math.max(flash, .45);
-  playBoom(.16);
+  sparkAt(x, y, 40, 4.6, ['#B8924A','#E8D3A0','#FFF3D0','#D4A574']);
+  flash = Math.max(flash, .22);
+  playBoom(.3);
 }
 /* 2) envelope khulne par — chingari + thori si confetti */
 function sealPuff(el){
@@ -1385,8 +1387,8 @@ function sealPuff(el){
       c: FX_COLORS[(Math.random()*FX_COLORS.length)|0], a: 1
     });
   }
-  flash = Math.max(flash, .6);
-  playBoom(.24);
+  flash = Math.max(flash, .38);
+  playBoom(.34);
 }
 /* 3) invite khulne par — poora dhamaka */
 function celebrate(){
