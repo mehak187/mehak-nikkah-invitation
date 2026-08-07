@@ -22,7 +22,7 @@ An animated nikkah invitation website — **Mehak & Shakaib**.
 ## Details
 
 **Sunday, 22 November 2026 · 7:00 PM**
-Deewan-e-Khas Marriage Hall, Sialkot
+Deewan-e-Khas Marquee, Sialkot
 
 ## Photos
 

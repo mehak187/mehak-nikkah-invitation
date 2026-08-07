@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mehak &amp; Shakaib — Nikkah Invitation</title>
-<meta name="description" content="Nikkah of Mehak &amp; Shakaib — Sunday, 22 November 2026 at 7:00 PM, Deewan-e-Khas Marriage Hall, Sialkot.">
+<meta name="description" content="Nikkah of Mehak &amp; Shakaib — Sunday, 22 November 2026 at 7:00 PM, Deewan-e-Khas Marquee, Sialkot.">
 <meta name="theme-color" content="#33081f">
 <!-- WhatsApp/social par link bhejne par theek preview aaye -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Mehak &amp; Shakaib — Nikkah Invitation">
-<meta property="og:description" content="Sunday, 22 November 2026 · 7:00 PM · Deewan-e-Khas Marriage Hall, Sialkot. Aap ki shirkat hamari khushiyon mein izafa ka baais hogi.">
+<meta property="og:description" content="Sunday, 22 November 2026 · 7:00 PM · Deewan-e-Khas Marquee, Sialkot. Aap ki shirkat hamari khushiyon mein izafa ka baais hogi.">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234a0e2e'/%3E%3Cg fill='none' stroke='%23f0d97d' stroke-width='2.6'%3E%3Cpath d='M32 9c9 11 9 22 0 33-9-11-9-22 0-33z'/%3E%3Cpath d='M15 32c8-6 15-6 23 0-8 6-15 6-23 0z' opacity='.55'/%3E%3Ccircle cx='32' cy='49' r='3.4'/%3E%3C/g%3E%3C/svg%3E">
 <!-- gate ki pehli tasveer — mobile par foran chahiye -->
@@ -520,6 +520,23 @@ body.locked{overflow:hidden;height:100vh}
   .facts{grid-template-columns:1fr;gap:26px}
 }
 
+/* ---- NAQSHA ---- */
+.map-frame{
+  position:relative;max-width:760px;margin:clamp(26px,4vw,40px) auto 0;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  box-shadow:0 22px 44px -26px rgba(110,104,65,.45);
+  aspect-ratio:16/9;line-height:0;background:var(--cream);
+}
+.map-frame iframe{position:relative;z-index:1;width:100%;height:100%;border:0;display:block;filter:saturate(.9)}
+.map-fallback{
+  position:absolute;inset:0;z-index:0;display:grid;place-content:center;gap:6px;
+  text-align:center;text-decoration:none;line-height:1.5;
+}
+.map-fallback svg{width:26px;height:26px;justify-self:center;fill:none;stroke:var(--brass-dk);stroke-width:1.4}
+.map-fallback b{font-family:var(--serif);font-weight:500;font-size:16px;color:var(--body)}
+.map-fallback span{font-family:var(--sans);font-weight:300;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass-dk)}
+@media (max-width:600px){.map-frame{aspect-ratio:4/3}}
+
 /* ---- GLIMPSES ---- */
 .strip{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(8px,1.4vw,16px);margin-top:clamp(24px,4vw,40px)}
 .strip figure{margin:0;overflow:hidden;aspect-ratio:3/4;background:var(--ivory-2);border:1px solid var(--line)}
@@ -547,22 +564,6 @@ body.locked{overflow:hidden;height:100vh}
   font-family:var(--sans);font-weight:300;letter-spacing:.3em;text-transform:uppercase;
   font-size:9.5px;color:#c8c3ad;margin-top:10px;padding-left:.3em;
 }
-.hosts{
-  display:grid;gap:clamp(18px,3vw,44px);justify-content:center;margin-top:clamp(22px,3.5vw,34px);
-  grid-template-columns:repeat(auto-fit,minmax(190px,max-content));
-}
-.hosts .host{display:grid;gap:5px}
-.hosts .r{
-  font-family:var(--sans);font-weight:400;letter-spacing:.2em;text-transform:uppercase;
-  font-size:9px;color:#d8c68a;padding-left:.2em;
-}
-.hosts .nm{font-family:var(--serif);font-size:17px;color:#fffaf0}
-.hosts .ph{
-  font-family:var(--sans);font-weight:300;font-size:13px;color:#e2ddcc;
-  text-decoration:none;border-bottom:1px solid rgba(255,255,255,.32);padding-bottom:2px;
-  justify-self:center;transition:.3s;
-}
-.hosts .ph:hover{color:#fff;border-bottom-color:#fff}
 .closing .fu{font-family:var(--urdu);font-size:14px;color:#dcd7c4;line-height:2.4;margin-top:clamp(24px,4vw,38px)}
 .closing .rule i{background:linear-gradient(90deg,transparent,rgba(216,198,138,.7))}
 .closing .rule i.r{background:linear-gradient(90deg,rgba(216,198,138,.7),transparent)}
@@ -773,15 +774,15 @@ body.locked{overflow:hidden;height:100vh}
       <div class="orn reveal">&#10086;</div>
       <p class="kicker reveal">Together With Their Families</p>
 
-      <p class="host-line reveal d1">Mr. &amp; Mrs. Rashid Mehmood</p>
-      <p class="say reveal d1">request the honour of your presence<br>at the Nikah of their son</p>
+      <p class="host-line reveal d1">Mr. &amp; Mrs. Amir</p>
+      <p class="say reveal d1">request the honour of your presence<br>at the Nikah of their daughter</p>
 
-      <p class="who reveal d2">Shakaib</p>
-      <p class="amp reveal d2">with</p>
       <p class="who reveal d2">Mehak</p>
+      <p class="amp reveal d2">with</p>
+      <p class="who reveal d2">Shakaib</p>
 
-      <p class="say reveal d3">daughter of</p>
-      <p class="host-line reveal d3">Mr. &amp; Mrs. Kamran Ali</p>
+      <p class="say reveal d3">son of</p>
+      <p class="host-line reveal d3">Mr. &amp; Mrs. Ishfaq</p>
 
       <div class="rule reveal d4"><i></i><b>&#10087;</b><i class="r"></i></div>
       <p class="ur reveal d4" lang="ur" dir="rtl">آپ کی شرکت ہماری خوشیوں میں اضافہ کا باعث ہوگی</p>
@@ -799,7 +800,7 @@ body.locked{overflow:hidden;height:100vh}
       <div class="facts">
         <div class="fact reveal d1"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><div class="k">Date</div><div class="v">22nd November, 2026</div><div class="s">Sunday</div></div>
         <div class="fact reveal d2"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div class="k">Time</div><div class="v">7:00 PM</div><div class="s">In the Evening</div></div>
-        <div class="fact reveal d3"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg><div class="k">Venue</div><div class="v">Deewan-e-Khas Marriage Hall</div><div class="s">Sialkot, Pakistan</div></div>
+        <div class="fact reveal d3"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg><div class="k">Venue</div><div class="v">Deewan-e-Khas Marquee</div><div class="s">Sialkot, Pakistan</div></div>
       </div>
 
 
@@ -852,8 +853,21 @@ body.locked{overflow:hidden;height:100vh}
 
       <div class="rule reveal d5" style="margin-top:clamp(26px,4vw,40px)"><i></i><b>&#10087;</b><i class="r"></i></div>
       <div class="cta-row reveal d6">
-        <a class="btn2 ghost" id="mapBtn" href="https://maps.google.com/?q=Deewan+e+Khas+Marriage+Hall+Sialkot" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>View Location</a>
+        <a class="btn2 ghost" id="mapBtn" href="https://maps.google.com/?cid=9696035927662194299" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>View Location</a>
         <a class="btn2 ghost" id="calBtn" href="#"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Add to Calendar</a>
+      </div>
+
+      <div class="map-frame reveal d6">
+        <!-- agar Google ka naqsha load na ho (net na ho, block ho) to khali dabba na dikhe -->
+        <a class="map-fallback" href="https://maps.google.com/?cid=9696035927662194299" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          <b>D-2 Marquee (Deewan-e-Khas)</b>
+          <span>Open in Google Maps</span>
+        </a>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3365.2445213323517!2d74.48163527579851!3d32.49289309845159!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391ee9afcf851c15%3A0x868f3d4dedbaee7b!2sD-2%20Marquee%20(Deewan-e-khas)!5e0!3m2!1sen!2s!4v1786128309814!5m2!1sen!2s"
+                title="Deewan-e-Khas Marquee, Sialkot — naqsha"
+                loading="lazy" allowfullscreen
+                referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
     </div>
   </section>
@@ -893,18 +907,6 @@ body.locked{overflow:hidden;height:100vh}
 
       <div class="rule reveal d3"><i></i><b>&#10087;</b><i class="r"></i></div>
 
-      <div class="hosts reveal d3">
-        <div class="host">
-          <span class="r">Groom&rsquo;s Family</span>
-          <span class="nm">Mr. Rashid Mehmood</span>
-          <a class="ph" href="tel:+923000000000">+92 300 0000000</a>
-        </div>
-        <div class="host">
-          <span class="r">Bride&rsquo;s Family</span>
-          <span class="nm">Mr. Kamran Ali</span>
-          <a class="ph" href="tel:+923010000000">+92 301 0000000</a>
-        </div>
-      </div>
 
       <p class="fu reveal d4" lang="ur" dir="rtl">آپ کی دعاؤں کے طلبگار</p>
       <div class="mono reveal d4">Mehak &amp; Shakaib</div>
@@ -1070,7 +1072,8 @@ const ICS = [
   'DTSTART:20261122T140000Z',
   'DTEND:20261122T180000Z',
   'SUMMARY:Nikkah — Mehak & Shakaib',
-  'LOCATION:Deewan-e-Khas Marriage Hall\\, Sialkot\\, Pakistan',
+  'LOCATION:D-2 Marquee (Deewan-e-Khas)\\, Sialkot\\, Pakistan',
+  'GEO:32.492893;74.481635',
   'DESCRIPTION:Aap ki shirkat hamari khushiyon mein izafa ka baais hogi.',
   'END:VEVENT','END:VCALENDAR'
 ].join('\r\n');
