@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mehak &amp; Shakaib — Nikkah Invitation</title>
-<meta name="description" content="Nikkah of Mehak &amp; Shakaib — Sunday, 22 November 2026 at 7:00 PM, Cantt View Marquee, Sialkot.">
+<meta name="description" content="Nikkah of Mehak &amp; Shakaib — Sunday, 22 November 2026 at 7:00 – 10:00 PM, Cantt View Marquee, Sialkot.">
 <meta name="theme-color" content="#33081f">
 <!-- WhatsApp/social par link bhejne par theek preview aaye -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Mehak &amp; Shakaib — Nikkah Invitation">
-<meta property="og:description" content="Sunday, 22 November 2026 · 7:00 PM · Cantt View Marquee, Sialkot. Aap ki shirkat hamari khushiyon mein izafa ka baais hogi.">
+<meta property="og:description" content="Sunday, 22 November 2026 · 7:00 – 10:00 PM · Cantt View Marquee, Sialkot. Aap ki shirkat hamari khushiyon mein izafa ka baais hogi.">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234a0e2e'/%3E%3Cg fill='none' stroke='%23f0d97d' stroke-width='2.6'%3E%3Cpath d='M32 9c9 11 9 22 0 33-9-11-9-22 0-33z'/%3E%3Cpath d='M15 32c8-6 15-6 23 0-8 6-15 6-23 0z' opacity='.55'/%3E%3Ccircle cx='32' cy='49' r='3.4'/%3E%3C/g%3E%3C/svg%3E">
 <!-- gate ki pehli tasveer — mobile par foran chahiye -->
@@ -581,6 +581,17 @@ body.locked{overflow:hidden;height:100vh}
 .fact:hover{transform:translateY(-6px);box-shadow:0 22px 42px -24px rgba(110,104,65,.5);border-color:var(--brass)}
 @media (max-width:700px){.fact{border-top:1px solid var(--line);padding-top:clamp(22px,3vw,32px)}}
 
+/* ---- waqt ki pabandi ---- */
+.punctual{
+  max-width:520px;margin:clamp(22px,3.2vw,32px) auto 0;text-align:center;
+  font-family:var(--serif);font-size:14.5px;line-height:1.9;color:var(--body-lt);
+}
+.punctual b{font-weight:500;color:var(--olive)}
+.punctual span{
+  display:block;font-family:var(--urdu);font-size:13px;line-height:2.4;
+  color:var(--body-lt);margin-top:6px;
+}
+
 /* ---- CALENDAR (heart on the 22nd) ---- */
 .cal-inline{
   position:relative;max-width:340px;margin:clamp(28px,4vw,40px) auto 0;
@@ -776,7 +787,7 @@ body.locked{overflow:hidden;height:100vh}
       <p class="kicker reveal">Together With Their Families</p>
 
       <p class="host-line reveal d1">Mr. &amp; Mrs. Amir</p>
-      <p class="say reveal d1">request the honour of your presence<br>at the Nikah of their daughter</p>
+      <p class="say reveal d1">request the honour of your presence<br>at the Nikah of their beloved daughter</p>
 
       <p class="who reveal d2">Mehak</p>
       <p class="amp reveal d2">with</p>
@@ -800,10 +811,14 @@ body.locked{overflow:hidden;height:100vh}
 
       <div class="facts">
         <div class="fact reveal d1"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><div class="k">Date</div><div class="v">22nd November, 2026</div><div class="s">Sunday</div></div>
-        <div class="fact reveal d2"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div class="k">Time</div><div class="v">7:00 PM</div><div class="s">In the Evening</div></div>
+        <div class="fact reveal d2"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div class="k">Time</div><div class="v">7:00 &ndash; 10:00 PM</div><div class="s">In the Evening</div></div>
         <div class="fact reveal d3"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg><div class="k">Venue</div><div class="v">Cantt View Marquee</div><div class="s">Sialkot, Pakistan</div></div>
       </div>
 
+      <p class="punctual reveal d3">
+        Kindly grace us with your presence by <b>7:00 PM</b>, so the Nikah may begin on time.
+        <span lang="ur" dir="rtl">براہِ کرم وقت کی پابندی فرمائیں</span>
+      </p>
 
       <div class="cal-inline reveal d4">
         <div class="cal-kicker">Save the Date</div>
@@ -1072,7 +1087,7 @@ const ICS = [
   'UID:nikkah-mehak-shakaib-20261122@invite',
   'DTSTAMP:20260101T000000Z',
   'DTSTART:20261122T140000Z',
-  'DTEND:20261122T180000Z',
+  'DTEND:20261122T170000Z',
   'SUMMARY:Nikkah — Mehak & Shakaib',
   'LOCATION:Cantt View Marquee\\, Sialkot\\, Pakistan',
   'GEO:32.511012;74.531163',
