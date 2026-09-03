@@ -540,46 +540,38 @@ body.locked{overflow:hidden;height:100vh}
 
 /* ---- PROGRAMME ---- */
 .prog{
-  list-style:none;max-width:520px;margin:clamp(30px,4.5vw,46px) auto 0;
+  list-style:none;width:max-content;max-width:100%;margin:clamp(30px,4.5vw,46px) auto 0;
   position:relative;padding:0;
 }
 /* beech mein sunehri lakeer — pehle aur aakhri dot tak */
 .prog::before{
-  content:'';position:absolute;left:calc(88px + 6px);top:14px;bottom:14px;width:1px;
+  content:'';position:absolute;left:calc(88px + 16px + 6.5px);top:14px;bottom:14px;width:1px;
   background:linear-gradient(180deg,transparent,var(--brass) 12%,var(--brass) 88%,transparent);
   opacity:.5;
 }
 .prog-item{
-  display:grid;grid-template-columns:88px 13px 1fr;align-items:start;
-  gap:0 16px;padding:0 0 clamp(20px,2.8vw,28px);
+  display:grid;grid-template-columns:88px 13px 1fr;align-items:center;
+  gap:0 16px;padding:0 0 clamp(18px,2.4vw,24px);
 }
 .prog-item:last-child{padding-bottom:0}
 .prog-time{
   font-family:var(--serif);font-variant-numeric:lining-nums;font-feature-settings:'lnum' 1;
-  font-size:15px;color:var(--olive);text-align:right;line-height:1.5;padding-top:1px;
+  font-size:15px;color:var(--olive);text-align:right;line-height:1.5;
 }
 .prog-dot{
-  width:9px;height:9px;margin-top:6px;border-radius:50%;justify-self:center;
+  width:9px;height:9px;border-radius:50%;justify-self:center;
   background:var(--ivory);border:1.5px solid var(--brass);position:relative;z-index:1;
 }
 .prog-body b{
   display:block;font-family:var(--serif);font-weight:500;font-size:16.5px;color:var(--body);
-}
-.prog-body em{
-  display:block;font-family:var(--sans);font-weight:300;font-style:normal;
-  font-size:12.5px;color:var(--body-lt);margin-top:3px;
 }
 .prog-note{
   max-width:520px;margin:clamp(24px,3.4vw,34px) auto 0;text-align:center;
   font-family:var(--serif);font-size:14.5px;line-height:1.9;color:var(--body-lt);
 }
 .prog-note b{font-weight:500;color:var(--olive)}
-.prog-note span{
-  display:block;font-family:var(--urdu);font-size:13px;line-height:2.4;
-  color:var(--body-lt);margin-top:6px;
-}
 @media (max-width:560px){
-  .prog::before{left:calc(64px + 6px)}
+  .prog::before{left:calc(64px + 12px + 6.5px)}
   .prog-item{grid-template-columns:64px 13px 1fr;gap:0 12px}
   .prog-time{font-size:13.5px}
   .prog-body b{font-size:15px}
@@ -947,28 +939,27 @@ body.locked{overflow:hidden;height:100vh}
         <li class="prog-item reveal d1">
           <span class="prog-time">6:30 PM</span>
           <span class="prog-dot" aria-hidden="true"></span>
-          <span class="prog-body"><b>Arrival &amp; Seating</b><em>Mehmanon ki aamad</em></span>
+          <span class="prog-body"><b>Arrival &amp; Seating</b></span>
         </li>
         <li class="prog-item reveal d2">
           <span class="prog-time">7:15 PM</span>
           <span class="prog-dot" aria-hidden="true"></span>
-          <span class="prog-body"><b>Nikah Ceremony</b><em>Khutba, ijab-o-qubool aur dua</em></span>
+          <span class="prog-body"><b>Nikah Ceremony</b></span>
         </li>
         <li class="prog-item reveal d3">
           <span class="prog-time">8:00 PM</span>
           <span class="prog-dot" aria-hidden="true"></span>
-          <span class="prog-body"><b>Ring Ceremony</b><em>Mubarakbaad aur tasaweer</em></span>
+          <span class="prog-body"><b>Ring Ceremony</b></span>
         </li>
         <li class="prog-item reveal d4">
           <span class="prog-time">8:15 PM</span>
           <span class="prog-dot" aria-hidden="true"></span>
-          <span class="prog-body"><b>Dinner</b><em>Khana</em></span>
+          <span class="prog-body"><b>Dinner</b></span>
         </li>
       </ol>
 
       <p class="prog-note reveal d5">
         The Nikah begins promptly at <b>7:15 PM</b> &mdash; kindly be seated before then.
-        <span lang="ur" dir="rtl">نکاح ٹھیک سوا سات بجے شروع ہوگا</span>
       </p>
     </div>
   </section>
