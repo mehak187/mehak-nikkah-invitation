@@ -14,12 +14,12 @@ An animated nikkah invitation website — **Mehak & Shakaib**.
 - Save the Date — live countdown with a flip on each change
 - Our Nikah — three cards (date / time / venue), November 2026 calendar with a beating heart
   on the 22nd and a dashed RSVP ring on the 10th, plus View Location and Add to Calendar
-- Our Story — text with three polaroids (polaroids appear only when photos exist)
 - Order of the Evening — programme timeline. **Guest-facing times are 15 min earlier than the
   real plan** so people arrive on time; edit the `rows` in the Programme markup to change them.
 - Glimpses of Us — five-photo strip, hidden until photos exist
 - RSVP — WhatsApp button
-- Footer — olive, monogram, quick links, contact, socials
+- Closing — olive band: dua (Sunan Abu Dawud), sign-off and date stamp. Not a footer;
+  no quick links, contact block or copyright line.
 
 ## Details
 

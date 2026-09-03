@@ -502,10 +502,6 @@ body.locked{overflow:hidden;height:100vh}
   font-family:var(--serif);font-style:italic;font-size:clamp(14px,2.4vw,17px);
   color:var(--body-lt);margin:-2px 0;
 }
-.invite .ur{
-  font-family:var(--urdu);font-size:14px;color:var(--body);
-  line-height:2.5;margin-top:16px;
-}
 
 /* ---- OUR NIKAH: teen sutoon ---- */
 .facts{
@@ -591,10 +587,9 @@ body.locked{overflow:hidden;height:100vh}
 /* ---- IKHTITAM (purane footer wala olive) ---- */
 .closing{background:var(--olive);color:#efeadb;text-align:center;padding-bottom:clamp(56px,8vw,96px)}
 .closing .orn{font-size:22px;color:#d8c68a;line-height:1;margin-bottom:18px}
-.closing .orn.sm{font-size:13px;margin:22px 0 0;opacity:.75}
 .closing .ar{
-  font-family:var(--arabic);font-size:clamp(20px,4.4vw,29px);
-  color:#fff8e6;line-height:2.05;max-width:760px;margin:0 auto;
+  font-family:var(--arabic);font-size:clamp(21px,4.8vw,32px);
+  color:#fff8e6;line-height:2.1;max-width:720px;margin:0 auto;
 }
 .closing .tr{
   font-family:var(--serif);font-style:italic;font-size:clamp(14px,2.6vw,17px);
@@ -602,13 +597,30 @@ body.locked{overflow:hidden;height:100vh}
 }
 .closing .src{
   font-family:var(--sans);font-weight:300;letter-spacing:.3em;text-transform:uppercase;
-  font-size:9.5px;color:#c8c3ad;margin-top:10px;padding-left:.3em;
+  font-size:9.5px;color:#cfcab4;margin-top:12px;padding-left:.3em;
 }
-.closing .fu{font-family:var(--urdu);font-size:14px;color:#dcd7c4;line-height:2.4;margin-top:clamp(24px,4vw,38px)}
+.closing .rule{margin-top:clamp(30px,4.5vw,44px)}
 .closing .rule i{background:linear-gradient(90deg,transparent,rgba(216,198,138,.7))}
 .closing .rule i.r{background:linear-gradient(90deg,rgba(216,198,138,.7),transparent)}
 .closing .rule b{color:#d8c68a}
-.closing .mono{font-family:var(--calli);font-size:clamp(30px,5.4vw,42px);color:#fffaf0;line-height:1.3;margin-top:6px}
+.closing .sign{
+  font-family:var(--sans);font-weight:300;letter-spacing:.34em;text-transform:uppercase;
+  font-size:9.5px;color:#d8c68a;margin-top:clamp(26px,4vw,38px);padding-left:.34em;
+}
+.closing .mono{
+  font-family:var(--calli);font-size:clamp(32px,5.8vw,46px);color:#fffaf0;
+  line-height:1.3;margin-top:10px;padding:0 .08em;
+}
+/* aakhri mohar — dono taraf baareek lakeer ke saath */
+.closing .stamp{
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  font-family:var(--sans);font-weight:300;letter-spacing:.26em;text-transform:uppercase;
+  font-size:10px;color:#cfcab4;margin-top:clamp(18px,2.6vw,24px);padding-left:.26em;
+}
+.closing .stamp::before,.closing .stamp::after{
+  content:'';width:clamp(24px,6vw,54px);height:1px;
+  background:rgba(216,198,138,.55);
+}
 
 /* ---- EVENT CARDS ---- */
 .facts{gap:clamp(14px,2.4vw,24px)}
@@ -836,7 +848,6 @@ body.locked{overflow:hidden;height:100vh}
       <p class="host-line reveal d3">Mr. &amp; Mrs. Ishfaq</p>
 
       <div class="rule reveal d4"><i></i><b>&#10087;</b><i class="r"></i></div>
-      <p class="ur reveal d4" lang="ur" dir="rtl">آپ کی شرکت ہماری خوشیوں میں اضافے کا باعث ہوگی</p>
     </div>
   </section>
 
@@ -998,10 +1009,9 @@ body.locked{overflow:hidden;height:100vh}
 
       <div class="rule reveal d3"><i></i><b>&#10087;</b><i class="r"></i></div>
 
-
-      <p class="fu reveal d4" lang="ur" dir="rtl">آپ کی دعاؤں کے طلبگار</p>
+      <p class="sign reveal d4">With love and prayers</p>
       <div class="mono reveal d4">Mehak &amp; Shakaib</div>
-      <div class="orn sm reveal d5">&#10087;</div>
+      <p class="stamp reveal d5">22 &middot; 11 &middot; 2026 &nbsp;&mdash;&nbsp; Sialkot</p>
     </div>
   </section>
 </main>
