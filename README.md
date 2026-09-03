@@ -23,7 +23,7 @@ An animated nikkah invitation website — **Mehak & Shakaib**.
 
 ## Details
 
-**Sunday, 22 November 2026 · 7:00 – 10:00 PM**
+**Sunday, 22 November 2026 · 6:30 – 10:00 PM**
 Cantt View Marquee, Sialkot
 
 ## Photos
