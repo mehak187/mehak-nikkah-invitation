@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Guest Links</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbf8f0; --card:#fff; --ink:#3d3a2c; --muted:#7c7663; --line:#e3dcc8;
+  --olive:#6E6841; --gold:#9A7838; --soft:#f3eedf; --green:#25a35a; --red:#b0485b;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.5 Poppins,system-ui,sans-serif}
+.wrap{max-width:820px;margin:0 auto;padding:28px 16px 80px}
+h1{font:400 clamp(36px,8vw,52px)/1.1 'Great Vibes',cursive;color:var(--gold);text-align:center;margin:0}
+.sub{text-align:center;color:var(--muted);font-size:13px;letter-spacing:.18em;text-transform:uppercase;margin:6px 0 26px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:18px;
+  box-shadow:0 10px 30px -22px rgba(110,104,65,.5)}
+.card h2{margin:0 0 14px;font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--olive)}
+label.f{display:block;font-size:12px;color:var(--muted);margin:0 0 6px}
+input[type=text],input[type=tel],textarea{
+  width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;
+  font:inherit;color:var(--ink);outline:none;transition:border-color .2s,box-shadow .2s}
+input:focus,textarea:focus{border-color:var(--olive);box-shadow:0 0 0 3px rgba(110,104,65,.12)}
+textarea{min-height:90px;resize:vertical}
+.row{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+@media (max-width:600px){.row{grid-template-columns:1fr}}
+.types{display:flex;gap:8px;flex-wrap:wrap}
+.types label{flex:1;min-width:120px;cursor:pointer}
+.types input{position:absolute;opacity:0;pointer-events:none}
+.types span{display:block;text-align:center;padding:10px 8px;border:1px solid var(--line);border-radius:12px;
+  font-size:13px;transition:.2s;background:#fff}
+.types span small{display:block;color:var(--muted);font-size:11px}
+.types input:checked + span{border-color:var(--olive);background:var(--olive);color:#fff}
+.types input:checked + span small{color:#e9e4cf}
+.types input:focus-visible + span{box-shadow:0 0 0 3px rgba(110,104,65,.25)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:11px 18px;border-radius:999px;
+  border:1px solid var(--olive);background:var(--olive);color:#fff;font:500 13px Poppins,sans-serif;cursor:pointer;
+  text-decoration:none;transition:.2s;white-space:nowrap}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:#fff;color:var(--olive)}
+.btn.wa{background:var(--green);border-color:var(--green)}
+.btn.sm{padding:7px 12px;font-size:12px}
+.btn.del{background:#fff;color:var(--red);border-color:#e7c6cc}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.preview{margin-top:12px;font-size:13px;color:var(--muted)}
+.preview b{font:400 22px 'Great Vibes',cursive;color:var(--gold)}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:12px}
+.count{font-size:13px;color:var(--muted)}
+.list{display:flex;flex-direction:column;gap:10px}
+.g{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff}
+.g.sent{background:#f4faf5;border-color:#cfe8d6}
+.g-top{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+.g-name{font:400 24px/1.2 'Great Vibes',cursive;color:var(--gold);word-break:break-word}
+.g-meta{font-size:12px;color:var(--muted)}
+.g-link{margin-top:8px;font-size:12px;color:var(--muted);word-break:break-all;background:var(--soft);
+  padding:8px 10px;border-radius:10px;user-select:all}
+.g-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+.g select{padding:7px 10px;border-radius:999px;border:1px solid var(--line);font:inherit;font-size:12px;background:#fff;color:var(--ink)}
+.sent-tag{font-size:12px;color:var(--green);display:flex;align-items:center;gap:5px;cursor:pointer}
+.empty{text-align:center;color:var(--muted);padding:26px 10px;font-size:14px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;background:var(--ink);color:#fff;
+  padding:10px 18px;border-radius:999px;font-size:13px;transition:.3s;pointer-events:none;z-index:9}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+details summary{cursor:pointer;color:var(--olive);font-size:13px;font-weight:500}
+.hint{font-size:12px;color:var(--muted);margin-top:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Guest Links</h1>
+  <div class="sub">A personal invitation link for every guest</div>
+
+  <!-- ===== ADD GUEST ===== -->
+  <div class="card">
+    <h2>Add a guest</h2>
+    <div class="row">
+      <div>
+        <label class="f" for="name">Name (e.g. Ali Khan)</label>
+        <input type="text" id="name" placeholder="Ali Khan" autocomplete="off">
+      </div>
+      <div>
+        <label class="f" for="phone">WhatsApp number (optional)</label>
+        <input type="tel" id="phone" placeholder="03001234567" autocomplete="off">
+      </div>
+    </div>
+    <div style="margin-top:14px">
+      <label class="f">How should the name appear?</label>
+      <div class="types" id="types">
+        <label><input type="radio" name="type" value="s" checked><span>Single<small>Ali Khan</small></span></label>
+        <label><input type="radio" name="type" value="c"><span>Mr. &amp; Mrs.<small>Mr. &amp; Mrs. Ali Khan</small></span></label>
+        <label><input type="radio" name="type" value="f"><span>With Family<small>Ali Khan &amp; Family</small></span></label>
+      </div>
+    </div>
+    <div class="preview" id="preview"></div>
+    <div class="actions">
+      <button class="btn" id="addBtn">+ Add guest</button>
+    </div>
+
+    <details style="margin-top:16px">
+      <summary>Add many names at once</summary>
+      <textarea id="bulk" style="margin-top:10px" placeholder="One name per line&#10;Ali Khan&#10;Sara Ahmed&#10;Usman Tariq"></textarea>
+      <div class="hint">The option selected above (Single / Mr. &amp; Mrs. / Family) applies to all of them. You can change each guest individually afterwards.</div>
+      <div class="actions"><button class="btn ghost" id="bulkBtn">Add all</button></div>
+    </details>
+  </div>
+
+  <!-- ===== GUEST LIST ===== -->
+  <div class="card">
+    <div class="toolbar">
+      <h2 style="margin:0">Guest list</h2>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="actions" style="margin:0 0 14px">
+      <button class="btn ghost sm" id="copyAll">Copy all links</button>
+      <button class="btn ghost sm" id="exportCsv">Download (Excel/CSV)</button>
+    </div>
+    <div class="list" id="list"></div>
+  </div>
+
+  <!-- ===== SETTINGS ===== -->
+  <div class="card">
+    <h2>Settings</h2>
+    <label class="f" for="msg">WhatsApp message &mdash; <code>{name}</code> and <code>{link}</code> are filled in automatically</label>
+    <textarea id="msg"></textarea>
+    <div style="margin-top:14px">
+      <label class="f" for="base">Website address</label>
+      <input type="text" id="base">
+      <div class="hint">Where the invitation is hosted (e.g. GitHub Pages). Usually you don't need to change this.</div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* Everything is saved in this browser only (localStorage) — nothing is uploaded */
+const LS = 'nikkahGuests.v1';
+const OLD_MSG = 'Assalam o Alaikum {name}!\n\nAap ko hamare Nikkah mein dil se dawat hai. Apna invitation yahan kholein:\n{link}\n\nMehak & Shakaib';
+const DEFAULT_MSG = 'Assalam o Alaikum {name}!\n\nWith great joy, we invite you to our Nikkah. Please open your invitation here:\n{link}\n\nMehak & Shakaib';
+const FALLBACK_BASE = 'https://mehak187.github.io/nikkah-invitation/';
+
+function defaultBase(){
+  if(location.protocol === 'http:' || location.protocol === 'https:'){
+    return location.href.replace(/[?#].*$/, '').replace(/[^/]*$/, '');
+  }
+  return FALLBACK_BASE;     // file:// se khola ho to online address
+}
+
+let state = { guests: [], msg: DEFAULT_MSG, base: defaultBase() };
+try{
+  const saved = JSON.parse(localStorage.getItem(LS) || 'null');
+  if(saved) state = Object.assign(state, saved);
+  if(state.msg === OLD_MSG) state.msg = DEFAULT_MSG;   // switch the old Roman-Urdu default to English
+}catch(e){}
+function save(){ try{ localStorage.setItem(LS, JSON.stringify(state)); }catch(e){} }
+
+const $ = id => document.getElementById(id);
+const TYPE_LABEL = { s:'Single', c:'Mr. & Mrs.', f:'With Family' };
+
+function fullName(g){
+  return g.t === 'c' ? 'Mr. & Mrs. ' + g.n : g.t === 'f' ? g.n + ' & Family' : g.n;
+}
+function linkFor(g){
+  let base = (state.base || '').trim();
+  if(base && !/\/$/.test(base) && !/\.html?$/i.test(base)) base += '/';
+  return base + '?' + new URLSearchParams({ n: g.n, t: g.t }).toString();
+}
+function messageFor(g){
+  return state.msg.replace(/\{name\}/g, fullName(g)).replace(/\{link\}/g, linkFor(g));
+}
+/* 0300-1234567 → 923001234567 */
+function waNumber(p){
+  let d = (p || '').replace(/\D/g, '');
+  if(!d) return '';
+  if(d.startsWith('00')) d = d.slice(2);
+  if(d.startsWith('0')) d = '92' + d.slice(1);
+  return d;
+}
+function waLink(g){
+  const num = waNumber(g.p);
+  return 'https://wa.me/' + num + '?text=' + encodeURIComponent(messageFor(g));
+}
+function currentType(){ return document.querySelector('input[name=type]:checked').value; }
+
+function toast(t){
+  const el = $('toast'); el.textContent = t; el.classList.add('show');
+  clearTimeout(toast.t); toast.t = setTimeout(()=>el.classList.remove('show'), 1800);
+}
+async function copy(text){
+  try{ await navigator.clipboard.writeText(text); }
+  catch(e){
+    const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy'); ta.remove();
+  }
+  toast('Copied ✓');
+}
+
+/* ---------- add ---------- */
+function updatePreview(){
+  const n = cap($('name').value);
+  $('preview').innerHTML = '';
+  if(!n) return;
+  const b = document.createElement('b'); b.textContent = fullName({ n, t: currentType() });
+  $('preview').append('Shown on the invitation as: Dear ', b);
+}
+$('name').addEventListener('input', updatePreview);
+$('types').addEventListener('change', updatePreview);
+
+/* "sana khan" → "Sana Khan" */
+const cap = s => s.trim().replace(/\s+/g, ' ').replace(/(^|[\s\-'])(\p{Ll})/gu, (m, a, c) => a + c.toUpperCase());
+function addGuest(n, t, p){
+  n = cap(n); if(!n) return false;
+  state.guests.unshift({ id: Date.now().toString(36) + Math.random().toString(36).slice(2,6), n, t, p: (p||'').trim(), sent:false });
+  return true;
+}
+$('addBtn').addEventListener('click', ()=>{
+  if(!addGuest($('name').value, currentType(), $('phone').value)){ $('name').focus(); return; }
+  $('name').value = ''; $('phone').value = ''; updatePreview();
+  save(); render(); $('name').focus(); toast('Guest added');
+});
+$('name').addEventListener('keydown', e=>{ if(e.key === 'Enter') $('addBtn').click(); });
+$('phone').addEventListener('keydown', e=>{ if(e.key === 'Enter') $('addBtn').click(); });
+$('bulkBtn').addEventListener('click', ()=>{
+  const lines = $('bulk').value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+  const t = currentType();
+  lines.reverse().forEach(n => addGuest(n, t, ''));
+  $('bulk').value = '';
+  save(); render(); toast(lines.length + ' guests added');
+});
+
+/* ---------- list ---------- */
+function render(){
+  const list = $('list'); list.innerHTML = '';
+  const sent = state.guests.filter(g=>g.sent).length;
+  $('count').textContent = state.guests.length ? `${state.guests.length} guests · ${sent} sent` : '';
+  if(!state.guests.length){
+    list.innerHTML = '<div class="empty">No guests yet. Type a name above and tap "Add guest".</div>';
+    return;
+  }
+  state.guests.forEach(g=>{
+    const el = document.createElement('div');
+    el.className = 'g' + (g.sent ? ' sent' : '');
+
+    const top = document.createElement('div'); top.className = 'g-top';
+    const left = document.createElement('div');
+    const nm = document.createElement('div'); nm.className = 'g-name'; nm.textContent = fullName(g);
+    const meta = document.createElement('div'); meta.className = 'g-meta';
+    meta.textContent = TYPE_LABEL[g.t] + (g.p ? ' · ' + g.p : '');
+    left.append(nm, meta);
+
+    const sel = document.createElement('select');
+    Object.entries(TYPE_LABEL).forEach(([v, l])=>{
+      const o = document.createElement('option'); o.value = v; o.textContent = l; if(v === g.t) o.selected = true; sel.append(o);
+    });
+    sel.addEventListener('change', ()=>{ g.t = sel.value; save(); render(); });
+    top.append(left, sel);
+
+    const link = document.createElement('div'); link.className = 'g-link'; link.textContent = linkFor(g);
+
+    const btns = document.createElement('div'); btns.className = 'g-btns';
+    const wa = document.createElement('a'); wa.className = 'btn wa sm'; wa.target = '_blank'; wa.rel = 'noopener';
+    wa.href = waLink(g); wa.textContent = 'Send on WhatsApp';
+    wa.addEventListener('click', ()=>{ g.sent = true; save(); setTimeout(render, 300); });
+    const cp = document.createElement('button'); cp.className = 'btn ghost sm'; cp.textContent = 'Copy link';
+    cp.addEventListener('click', ()=>copy(linkFor(g)));
+    const cm = document.createElement('button'); cm.className = 'btn ghost sm'; cm.textContent = 'Copy message';
+    cm.addEventListener('click', ()=>copy(messageFor(g)));
+    const op = document.createElement('a'); op.className = 'btn ghost sm'; op.target = '_blank'; op.rel = 'noopener';
+    op.href = linkFor(g); op.textContent = 'Preview';
+    const del = document.createElement('button'); del.className = 'btn del sm'; del.textContent = 'Remove';
+    del.addEventListener('click', ()=>{
+      if(!confirm('Remove ' + fullName(g) + ' from the list?')) return;
+      state.guests = state.guests.filter(x=>x !== g); save(); render();
+    });
+    const st = document.createElement('label'); st.className = 'sent-tag';
+    const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = !!g.sent;
+    cb.addEventListener('change', ()=>{ g.sent = cb.checked; save(); render(); });
+    st.append(cb, 'Sent');
+    btns.append(wa, cp, cm, op, del, st);
+
+    el.append(top, link, btns);
+    list.append(el);
+  });
+}
+
+$('copyAll').addEventListener('click', ()=>{
+  if(!state.guests.length) return toast('The list is empty');
+  copy(state.guests.map(g => fullName(g) + '\n' + linkFor(g)).join('\n\n'));
+});
+$('exportCsv').addEventListener('click', ()=>{
+  if(!state.guests.length) return toast('The list is empty');
+  const esc = v => '"' + String(v).replace(/"/g, '""') + '"';
+  const rows = [['Name','Type','WhatsApp','Link','Sent']]
+    .concat(state.guests.map(g => [fullName(g), TYPE_LABEL[g.t], g.p || '', linkFor(g), g.sent ? 'Yes' : 'No']));
+  const csv = '﻿' + rows.map(r => r.map(esc).join(',')).join('\r\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], { type:'text/csv;charset=utf-8' }));
+  a.download = 'guest-links.csv'; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+});
+
+/* ---------- settings ---------- */
+$('msg').value = state.msg;
+$('base').value = state.base;
+$('msg').addEventListener('input', ()=>{ state.msg = $('msg').value || DEFAULT_MSG; save(); render(); });
+$('base').addEventListener('input', ()=>{ state.base = $('base').value.trim(); save(); render(); });
+
+render();
+</script>
+</body>
+</html>
