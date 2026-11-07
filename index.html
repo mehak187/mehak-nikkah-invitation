@@ -10,7 +10,13 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Mehak &amp; Shakaib — Nikkah Invitation">
 <meta property="og:description" content="Sunday, 22 November 2026 · 6:30 – 10:00 PM · Cantt View Marquee, Sialkot. Aap ki shirkat hamari khushiyon mein izafa ka baais hogi.">
-<meta name="twitter:card" content="summary">
+<!-- preview tasveer ka POORA address chahiye — site ka address badle to yahan bhi badlein -->
+<meta property="og:image" content="https://mehak187.github.io/nikkah-invitation/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Nikkah of Mehak &amp; Shakaib — 22 November 2026">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://mehak187.github.io/nikkah-invitation/og.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234a0e2e'/%3E%3Cg fill='none' stroke='%23f0d97d' stroke-width='2.6'%3E%3Cpath d='M32 9c9 11 9 22 0 33-9-11-9-22 0-33z'/%3E%3Cpath d='M15 32c8-6 15-6 23 0-8 6-15 6-23 0z' opacity='.55'/%3E%3Ccircle cx='32' cy='49' r='3.4'/%3E%3C/g%3E%3C/svg%3E">
 <!-- gate ki pehli tasveer — mobile par foran chahiye -->
 <link rel="preload" as="image" href="envelope.jpg">
@@ -203,7 +209,6 @@ body.locked{overflow:hidden;height:100vh}
   font-weight:500;font-size:clamp(13px,3.4vw,16px);letter-spacing:.2em;color:#6E6841;
   margin-left:.35em;overflow-wrap:anywhere;
 }
-#stageEnv .guest-name{margin-bottom:20px}
 .gate-title small{
   display:block;font-family:var(--sans);font-weight:300;letter-spacing:.42em;
   text-transform:uppercase;font-size:9.5px;color:#6E6858;margin-top:10px;padding-left:.42em;
@@ -336,6 +341,32 @@ body.locked{overflow:hidden;height:100vh}
     60.76% 62.11%,59.90% 66.80%,57.52% 70.66%,54.07% 72.86%,50.13% 73.05%,
     46.50% 71.24%,43.85% 67.68%,42.69% 63.09%,43.13% 58.64%,16.16% 26.41%);
 }
+/* moum ki muhr par apne initials — tasveer wale patte ke upar sone ki tikki.
+   flap ke andar hai, is liye flap ke saath hi palat kar chhup jati hai.
+   jagah tasveer se naapi: markaz (51.15%, 63%), andar ki tikki ~10.2% chauri */
+.ep-seal{
+  position:absolute;left:50.75%;top:62.9%;width:10.4%;aspect-ratio:1;
+  transform:translate(-50%,-50%);border-radius:50%;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  display:grid;place-items:center;
+  background:
+    radial-gradient(circle at 36% 30%,rgba(255,244,210,.55),rgba(255,244,210,0) 46%),
+    radial-gradient(circle at 50% 50%,#d2b273 0%,#c3a061 52%,#a98641 82%,#93733a 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,236,190,.45),
+    inset 0 2px 4px rgba(95,65,25,.38),
+    inset 0 -2px 3px rgba(255,240,205,.45),
+    0 0 2px 1px rgba(170,135,70,.55);
+}
+.ep-seal span{
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;
+  font-size:calc(min(88vw,560px) * .036);line-height:1;letter-spacing:-.02em;
+  color:#86652a;white-space:nowrap;
+  /* andar daba hua (debossed) — upar gehra saya, neeche chamak */
+  text-shadow:0 1px 0 rgba(255,238,195,.75),0 -1px 0 rgba(80,52,15,.35);
+}
+.ep-seal i{font-style:italic;font-weight:400;font-size:.72em;margin:0 .04em;vertical-align:.12em}
+
 /* pichla rukh khud 180deg ghooma hua hai, is liye iska clip bhi ulta (y → 100−y)
    likha gaya hai — palatne ke baad theek flap par baith jata hai */
 .ef-back{
@@ -490,6 +521,7 @@ body.locked{overflow:hidden;height:100vh}
 .band{position:relative;padding:clamp(48px,7vw,84px) clamp(18px,5vw,40px);overflow:hidden}
 .band.ivory{background:var(--ivory)}
 .band.ivory-2{background:var(--ivory-2)}
+
 .wrap{max-width:1120px;margin:0 auto;position:relative;z-index:2}
 .calli{
   font-family:var(--calli);color:var(--brass-dk);line-height:1.25;
@@ -679,6 +711,23 @@ body.locked{overflow:hidden;height:100vh}
   font-family:var(--calli);font-size:clamp(32px,5.8vw,46px);color:#fffaf0;
   line-height:1.3;margin-top:10px;padding:0 .08em;
 }
+
+/* ---- NAAMON PAR SONE KI CHAMAK ----
+   naam ka rang hi gradient hai; beech mein ek roshan patti har kuch second baad guzarti hai.
+   --c = asal rang, --h = chamak */
+.shine{
+  display:inline-block;padding:0 .18em;
+  background:linear-gradient(110deg,var(--c) 0%,var(--c) 42%,var(--h) 50%,var(--c) 58%,var(--c) 100%);
+  background-size:280% 100%;background-position:100% 0;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  animation:shine 5s ease-in-out 1.2s infinite;
+}
+@keyframes shine{0%{background-position:100% 0}38%,100%{background-position:0 0}}
+@media (prefers-reduced-motion:reduce){.shine{animation:none}}
+.ec-lg .shine{--c:#6E6841;--h:#e9cf86}
+.gs-mono .shine{--c:#9A7838;--h:#fff3c8}
+.closing .mono .shine{--c:#f1e2b4;--h:#ffffff}
 /* aakhri mohar — dono taraf baareek lakeer ke saath */
 .closing .stamp{
   display:flex;align-items:center;justify-content:center;gap:14px;
@@ -791,7 +840,7 @@ body.locked{overflow:hidden;height:100vh}
       <div class="gate-wrap">
         <div class="gate-scene" id="window">
           <span class="gs-back"></span>
-          <span class="gs-mono">Nikkah of<br>Mehak &amp; Shakaib</span>
+          <span class="gs-mono">Nikkah of<br><span class="shine">Mehak &amp; Shakaib</span></span>
           <span class="gs-part gs-leaf l"></span>
           <span class="gs-part gs-leaf r"></span>
           <span class="gs-part gs-pillar l"></span>
@@ -831,7 +880,6 @@ body.locked{overflow:hidden;height:100vh}
   <!-- STAGE 2 — the envelope -->
   <div class="stage wait" id="stageEnv">
     <div class="gate-inner">
-      <div class="guest-name" data-guest hidden></div>
       <div class="gate-eyebrow">You are cordially invited</div>
 
       <div class="env-wrap">
@@ -841,13 +889,14 @@ body.locked{overflow:hidden;height:100vh}
           <div class="ep-card">
             <div class="ec-in">
               <div class="ec-sm">Save the date</div>
-              <div class="ec-lg">Mehak &amp; Shakaib</div>
+              <div class="ec-lg"><span class="shine">Mehak &amp; Shakaib</span></div>
               <div class="ec-sm">22 · 11 · 2026</div>
             </div>
           </div>
           <span class="ep ep-body"></span>
           <span class="ep-flap">
             <span class="ep ef-face"></span>
+            <span class="ep-seal" aria-label="M &amp; S"><span>M<i>&amp;</i>S</span></span>
             <span class="ef-back"></span>
           </span>
           <span class="tap-me tap-env" aria-hidden="true"><span class="ring"></span><span class="ring"></span><span class="hand">👆</span></span>
@@ -1064,7 +1113,7 @@ body.locked{overflow:hidden;height:100vh}
       <h2 class="calli reveal">We Would Be Honored By Your Presence</h2>
       <div class="rule reveal"><i></i><b>&#10087;</b><i class="r"></i></div>
       <div class="reveal d1" style="margin-top:22px">
-        <a class="btn2" href="https://wa.me/923000000000?text=Assalam-o-Alaikum!%20InshaAllah%20I%20will%20attend%20the%20nikkah." target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 20.7 10.5 19.3C5.3 14.9 1.9 11.8 1.9 8.05A5.45 5.45 0 0 1 12 4.7 5.45 5.45 0 0 1 22.1 8.05c0 3.75-3.4 6.85-8.6 11.25z"/></svg>Kindly RSVP</a>
+        <a class="btn2" href="https://wa.me/923136144184?text=Assalam-o-Alaikum!%20InshaAllah%20I%20will%20attend%20the%20Nikkah." target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 20.7 10.5 19.3C5.3 14.9 1.9 11.8 1.9 8.05A5.45 5.45 0 0 1 12 4.7 5.45 5.45 0 0 1 22.1 8.05c0 3.75-3.4 6.85-8.6 11.25z"/></svg>Kindly RSVP</a>
       </div>
     </div>
   </section>
@@ -1082,7 +1131,7 @@ body.locked{overflow:hidden;height:100vh}
       <div class="rule reveal d3"><i></i><b>&#10087;</b><i class="r"></i></div>
 
       <p class="sign reveal d4">With love and prayers</p>
-      <div class="mono reveal d4">Mehak &amp; Shakaib</div>
+      <div class="mono reveal d4"><span class="shine">Mehak &amp; Shakaib</span></div>
       <p class="stamp reveal d5">22 &middot; 11 &middot; 2026 &nbsp;&mdash;&nbsp; Sialkot</p>
     </div>
   </section>
@@ -1128,6 +1177,7 @@ window.addEventListener('load', toTop);
     el.hidden = false;
   });
   document.title = full + ' — ' + document.title;
+  window.GUEST = { name: n, type: t, full };
 })();
 
 /* ---------- GATE ---------- */
